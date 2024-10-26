@@ -1,17 +1,25 @@
 import { NextPage } from 'next';
-import classNames from 'classnames';
+import { useAuthContext } from '@/context/AuthContext';
+import { SignInComponent } from '@/components/common/auth/SignInComponent';
+import { TaskList } from '@/components/common/tasks/TaskList';
+import { Toaster } from 'react-hot-toast';
+import { Header } from '@/components/common/shared/Header';
+import '../utils/fontawesome';
 
 const Home: NextPage = () => {
+  const { isLogin } = useAuthContext();
+
   return (
-    <main
-      className={classNames(
-        'h-full',
-        'w-full',
-        'flex',
-        'items-center, justify-center',
+    <main>
+      {isLogin ? (
+        <>
+          <Header />
+          <TaskList />
+        </>
+      ) : (
+        <SignInComponent />
       )}
-    >
-      Welcome to the SSG test task
+      <Toaster position="bottom-left" />
     </main>
   );
 };

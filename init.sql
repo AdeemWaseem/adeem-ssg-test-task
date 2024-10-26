@@ -4,17 +4,33 @@
 -- Create a sample table
 CREATE TABLE IF NOT EXISTS users (
   id SERIAL PRIMARY KEY,
+  full_name VARCHAR(50) UNIQUE NOT NULL,
   username VARCHAR(50) UNIQUE NOT NULL,
   email VARCHAR(255) UNIQUE NOT NULL,
+  password VARCHAR(255) UNIQUE NOT NULL,
+  isLogin BOOLEAN DEFAULT FALSE,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE tasks (
+  id SERIAL PRIMARY KEY,
+  task_name VARCHAR(255) NOT NULL,
+  description TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE TABLE tasks_users (
+  task_id INT REFERENCES tasks(id) ON DELETE CASCADE,
+  user_id INT REFERENCES users(id) ON DELETE CASCADE,
+  PRIMARY KEY (task_id, user_id)
 );
 
 -- Insert some sample data
 INSERT INTO
-  users (username, email)
+  users (username, email, password)
 VALUES
-  ('john_doe', 'john@example.com'),
-  ('jane_smith', 'jane@example.com')
+  ('John Doe','john_doe', 'john@example.com', 'john@123'),
+  ('Jane Smith','jane_smith', 'jane@example.com', 'jane@123')
 ON CONFLICT (username) DO NOTHING;
 
 -- Create another sample table

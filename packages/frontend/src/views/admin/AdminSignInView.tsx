@@ -2,7 +2,7 @@ import { FunctionComponent, PropsWithChildren } from "react";
 import { useAuthContext } from "@/context/AuthContext";
 import { ADMIN_ROUTES, USER_APP_ROUTES } from "@/routing/routes";
 import { useRoute } from "@/routing/useRoute";
-import { SignInComponent } from "@/components/common/SignInComponent";
+import { SignInComponent } from "@/components/common/auth/SignInComponent";
 
 type Props = {};
 
